@@ -9,4 +9,13 @@ INTENT_TERMS = [
     "how do I get my business online",
     "looking for someone to build my website",
     "need an online presence",
+    "need a website for my company",
+    "looking for a website designer",
+    "recommend a website developer",
+    "can anyone recommend a web designer",
+    "who can build a website for my business",
+    "who can create a website for my business",
+    "I need a website",
+    "I need a website for my business",
+    "I need a landing page for my business",
 ]
