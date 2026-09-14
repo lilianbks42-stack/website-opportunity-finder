@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 from tavily import TavilyClient
 
+from agent.recency import is_recent_reddit_post
+
 
 load_dotenv()
 
@@ -39,7 +41,7 @@ def search_web(query, max_results=5):
     return response.get("results", [])
 
 
-def search_reddit(max_results_per_query=5):
+def search_reddit(max_results_per_query=5, max_age_hours=48):
     results = []
 
     for query in REDDIT_QUERIES:
@@ -50,7 +52,11 @@ def search_reddit(max_results_per_query=5):
             max_results=max_results_per_query,
         )
 
-        results.extend(search_results)
+        for result in search_results:
+            raw_content = result.get("raw_content") or ""
+
+            if is_recent_reddit_post(raw_content, max_age_hours):
+                results.append(result)
 
     return results
 
