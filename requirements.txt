@@ -1,0 +1,3 @@
+# Phase 1: no external dependencies needed yet.
+# We'll add packages here as we build out search, AI analysis, and storage
+# in later phases (e.g. requests, python-dotenv, gspread, etc.)

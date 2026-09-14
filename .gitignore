@@ -1,0 +1,19 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Data (leads may contain personal/business info — keep out of git by default)
+data/*.csv
+data/*.json
+!data/.gitkeep
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
