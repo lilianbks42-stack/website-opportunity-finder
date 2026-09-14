@@ -15,6 +15,18 @@ if not TAVILY_API_KEY:
 client = TavilyClient(api_key=TAVILY_API_KEY)
 
 
+REDDIT_QUERIES = [
+    "site:reddit.com looking for someone to build a website",
+    "site:reddit.com looking to hire a web designer",
+    "site:reddit.com can anyone recommend a web designer",
+    "site:reddit.com need someone to build a website",
+    "site:reddit.com looking for a website developer for my business",
+    "site:reddit.com looking to pay someone to build a website",
+    "site:reddit.com need a website for my business",
+    "site:reddit.com looking to build a website for my business",
+]
+
+
 def search_web(query, max_results=5):
     response = client.search(
         query=query,
@@ -25,15 +37,30 @@ def search_web(query, max_results=5):
     return response.get("results", [])
 
 
-if __name__ == "__main__":
-    results = search_web(
-        '"looking for a website developer" Kenya'
-    )
+def search_reddit(max_results_per_query=5):
+    results = []
 
-    print("\nWebsite Opportunity Finder - Search Test")
-    print("-----------------------------------------")
+    for query in REDDIT_QUERIES:
+        print(f"\nSearching Reddit for: {query}")
+
+        search_results = search_web(
+            query,
+            max_results=max_results_per_query,
+        )
+
+        results.extend(search_results)
+
+    return results
+
+
+if __name__ == "__main__":
+    results = search_reddit(max_results_per_query=3)
+
+    print("\n")
+    print("Website Opportunity Finder - Reddit Discovery Test")
+    print("--------------------------------------------------")
 
     for result in results:
-        print("\nTitle:", result.get("title"))
+        print("\nTITLE:", result.get("title"))
         print("URL:", result.get("url"))
-        print("Content:", result.get("content", "")[:500])
+        print("TEXT:", result.get("content", "")[:500])
