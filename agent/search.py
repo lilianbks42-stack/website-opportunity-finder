@@ -40,7 +40,23 @@ def search_web(query, max_results=5):
 
     return response.get("results", [])
 
+def remove_duplicate_results(results):
+    unique_results = []
+    seen_urls = set()
 
+    for result in results:
+        url = result.get("url")
+
+        if not url:
+            continue
+
+        if url in seen_urls:
+            continue
+
+        seen_urls.add(url)
+        unique_results.append(result)
+
+    return unique_results
 def search_reddit(max_results_per_query=5, max_age_hours=48):
     results = []
 
@@ -58,7 +74,7 @@ def search_reddit(max_results_per_query=5, max_age_hours=48):
             if is_recent_reddit_post(raw_content, max_age_hours):
                 results.append(result)
 
-    return results
+        return remove_duplicate_results(results)
 
 
 if __name__ == "__main__":
